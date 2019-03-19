@@ -33,6 +33,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     //Marciano miMarciano = new Marciano();
     Marciano [][] listaMarcianos = new Marciano[filas][columnas];
     boolean direccionMarcianos = false;
+    int contador = 0;
     
     Timer temporizador = new Timer(10,new ActionListener() {
         @Override
@@ -70,7 +71,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     private void bucleDelJuego(){
         //se encarga el redibujado de los objetos en el jPanel1
         //primero borro todo lo que hay en el buffer 
-        
+        contador++;
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, ANCHOPANTALLA, ALTOPANTALLA);
@@ -91,15 +92,38 @@ public class VentanaJuego extends javax.swing.JFrame {
         g2.drawImage(buffer, 0, 0, null);
     }
     
+    private void cambiaDireccionMarcianos(){
+        for (int i=0; i<filas; i++){
+            for (int j=0; j<columnas; j++){
+                listaMarcianos[i][j].setvX(listaMarcianos[i][j].getvX()*-1);
+            }
+        }
+    }
+    
     private void pintaMarcianos(Graphics2D _g2){
+        
+        int anchoMarciano = listaMarcianos[0][0].imagen1.getWidth(null);
         for (int i=0; i<filas; i++){
             for (int j=0; j<columnas; j++){
                 listaMarcianos[i][j].mueve();
-                _g2.drawImage(  listaMarcianos[i][j].imagen1,
+                //chequeo si el marciano ha chocado contra la pared para cambiar la direccion de todos los marcianos
+                if(listaMarcianos[i][j].x + anchoMarciano == ANCHOPANTALLA || listaMarcianos[i][j].x == 0){
+                    cambiaDireccionMarcianos();
+                }
+                if(contador < 50){
+                    _g2.drawImage(  listaMarcianos[i][j].imagen1,
                                 listaMarcianos[i][j].x,
                                 listaMarcianos[i][j].y,
                                 null);
-            }   
+                }
+                else if (contador < 100){
+                    _g2.drawImage(  listaMarcianos[i][j].imagen2,
+                                listaMarcianos[i][j].x,
+                                listaMarcianos[i][j].y,
+                                null);
+                }
+                else contador = 0;
+            }
         }
     }
     
