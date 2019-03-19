@@ -67,7 +67,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                 listaMarcianos[i][j].y = i*(10+listaMarcianos[i][j].imagen1.getHeight(null));
             }
         }
-        miDisparo.posicionaDisparo(miNave);
+        miDisparo.posicionaDisparo(miNave); 
     }
     
     private void bucleDelJuego(){
