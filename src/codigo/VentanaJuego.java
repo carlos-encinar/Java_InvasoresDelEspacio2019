@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
@@ -66,6 +67,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                 listaMarcianos[i][j].y = i*(10+listaMarcianos[i][j].imagen1.getHeight(null));
             }
         }
+        miDisparo.posicionaDisparo(miNave);
     }
     
     private void bucleDelJuego(){
@@ -83,6 +85,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         pintaMarcianos(g2);
         miNave.mueve();
         miDisparo.mueve();
+        chequeaColision();
         
         ////////////////////////////////////////////////////
         //******** fasse final, se dibuja *********//
@@ -90,6 +93,29 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         g2 = (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, null);
+    }
+    
+    private void chequeaColision(){
+        Rectangle2D.Double rectanguloMarciano = new Rectangle2D.Double();
+        Rectangle2D.Double rectanguloDisparo = new Rectangle2D.Double();
+        
+        rectanguloDisparo.setFrame(miDisparo.x,
+                                   miDisparo.y,
+                                   miDisparo.imagen.getWidth(null),
+                                   miDisparo.imagen.getHeight(null));
+        
+        for (int i=0; i<filas; i++){
+            for (int j=0; j<columnas; j++){
+                rectanguloMarciano.setFrame(listaMarcianos[i][j].x,
+                                            listaMarcianos[i][j].y,
+                                            listaMarcianos[i][j].imagen1.getWidth(null),
+                                            listaMarcianos[i][j].imagen1.getHeight(null));
+                if(rectanguloDisparo.intersects(rectanguloMarciano)){
+                    listaMarcianos[i][j].y = 2000;
+                    miDisparo.posicionaDisparo(miNave);
+                }
+            }
+        }
     }
     
     private void cambiaDireccionMarcianos(){
