@@ -17,6 +17,7 @@ public class Disparo {
     public Image imagen = null;
     public int x = 0;
     public int y = 0;
+    public boolean disparado = false;
     
     public Disparo(){
         try {
@@ -27,7 +28,9 @@ public class Disparo {
     }
     
     public void  mueve(){
-        y--;
+        if(disparado){
+            y--;
+        }
     }
     
     public void posicionaDisparo(Nave _nave){
