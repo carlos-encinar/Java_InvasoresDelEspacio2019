@@ -7,11 +7,14 @@ package codigo;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 /**
@@ -35,6 +38,8 @@ public class VentanaJuego extends javax.swing.JFrame {
     Marciano [][] listaMarcianos = new Marciano[filas][columnas];
     boolean direccionMarcianos = false;
     int contador = 0;
+    BufferedImage plantilla = null;
+    Image [] imagenes = new Image[30];
     
     Timer temporizador = new Timer(10,new ActionListener() {
         @Override
@@ -49,6 +54,21 @@ public class VentanaJuego extends javax.swing.JFrame {
      */
     public VentanaJuego() {
         initComponents();
+        try{
+            plantilla = ImageIO.read(getClass().getResource("/imagenes/invaders2.png"));
+        } catch(IOException ex){
+            
+        }
+        //cargo las imagenes de forma individual en cada imagen del array de imagenes
+        for(int i=0; i<5; i++){
+            for(int j=0; j<4; j++){
+               imagenes [i*4 + j] = plantilla.getSubimage(j*64,i*64, 64, 64);
+                imagenes [i*4 + j] = imagenes[i*4 + j].getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+            }
+        }
+        for(int j=0; j<4; j++){
+            imagenes [20 + j] = plantilla.getSubimage(j*64,5*64, 64, 32);
+        }
         setSize(ANCHOPANTALLA, ALTOPANTALLA);
         buffer = (BufferedImage) jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
@@ -58,11 +78,14 @@ public class VentanaJuego extends javax.swing.JFrame {
         //inicializo la posicion inicial de la nave
         miNave.x = ANCHOPANTALLA / 2 - miNave.imagen.getWidth(this) /2;
         miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) -40;
+        miNave.imagen = imagenes[21];
         
         //inicializo el array de marcianos
         for(int i=0; i<filas; i++){
             for(int j=0; j<columnas; j++){
                 listaMarcianos[i][j] = new Marciano();
+                listaMarcianos[i][j].imagen1 = imagenes[2*i];
+                listaMarcianos[i][j].imagen2 = imagenes[2*i+1];
                 listaMarcianos[i][j].x = j*(15+listaMarcianos[i][j].imagen1.getWidth(null));
                 listaMarcianos[i][j].y = i*(10+listaMarcianos[i][j].imagen1.getHeight(null));
             }
