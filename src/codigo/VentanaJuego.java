@@ -60,6 +60,7 @@ public class VentanaJuego extends javax.swing.JFrame {
             
         }
         //cargo las imagenes de forma individual en cada imagen del array de imagenes
+        
         for(int i=0; i<5; i++){
             for(int j=0; j<4; j++){
                imagenes [i*4 + j] = plantilla.getSubimage(j*64,i*64, 64, 64);
@@ -67,8 +68,13 @@ public class VentanaJuego extends javax.swing.JFrame {
             }
         }
         for(int j=0; j<4; j++){
-            imagenes [20 + j] = plantilla.getSubimage(j*64,5*64, 64, 32);
+            imagenes [21 + j] = plantilla.getSubimage(j*64,5*64, 64, 32);
         }
+        
+        imagenes [24] = plantilla.getSubimage(4*64,2*64, 32, 64);
+        imagenes [24] = imagenes[24].getScaledInstance(16, 32, Image.SCALE_SMOOTH);
+        miDisparo.imagen = imagenes [24];
+        
         setSize(ANCHOPANTALLA, ALTOPANTALLA);
         buffer = (BufferedImage) jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
