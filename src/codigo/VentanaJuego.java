@@ -14,10 +14,10 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  *
@@ -90,6 +90,15 @@ public class VentanaJuego extends javax.swing.JFrame {
         creaFilaDeMarcianos(7,1,0); 
     }
     
+    private void reproduce (String cancion){
+           try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream( getClass().getResource(cancion) ));
+            clip.loop(0);
+           } catch (Exception e) {      
+        } 
+   }
+    
     private void creaFilaDeMarcianos(int numeroFila, int spriteFila, int spriteColumna){
         for (int j = 0; j < columnas; j++) {
             listaMarcianos[numeroFila][j] = new Marciano();
@@ -151,6 +160,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         chequeaColision();
         miNave.mueve();
         miDisparo.mueve();
+        
         /////////////////////////////////////////////////////////////
         //*****************   fase final, se dibuja ***************//
         //*****************   el buffer de golpe sobre el Jpanel***//
@@ -181,6 +191,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                         listaMarcianos[i][j].vivo = false;
                         miDisparo.posicionaDisparo(miNave);
                         miDisparo.y = 1000;
+                        reproduce("/sonidos/yvolo.wav");
                         miDisparo.disparado = false;
                     }
                 }
