@@ -29,7 +29,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     static int ALTOPANTALLA = 450;
 
     //numero de marcianos que van a aparecer
-    int filas = 8;
+    int filas = 6;
     int columnas = 10;
 
     BufferedImage buffer = null;
@@ -83,11 +83,9 @@ public class VentanaJuego extends javax.swing.JFrame {
         creaFilaDeMarcianos(0,0,2);
         creaFilaDeMarcianos(1,2,2);
         creaFilaDeMarcianos(2,4,0);
-        creaFilaDeMarcianos(3,3,1);
+        creaFilaDeMarcianos(3,1,1);
         creaFilaDeMarcianos(4,1,0);
         creaFilaDeMarcianos(5,3,2);
-        creaFilaDeMarcianos(6,2,1);
-        creaFilaDeMarcianos(7,1,0); 
     }
     
     private void reproduce (String cancion){
@@ -191,8 +189,9 @@ public class VentanaJuego extends javax.swing.JFrame {
                         listaMarcianos[i][j].vivo = false;
                         miDisparo.posicionaDisparo(miNave);
                         miDisparo.y = 1000;
-                        reproduce("/sonidos/yvolo.wav");
+                        reproduce("/sonidos/NANI! - Sound.wav");
                         miDisparo.disparado = false;
+                        reproduce("/sonidos/Directed by Robert.wav");
                     }
                 }
             }
@@ -297,6 +296,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                 miNave.setPulsadoDerecha(true);
                 break;
             case KeyEvent.VK_SPACE:
+                reproduce("/sonidos/Try Me Bitch Sound Effect.wav");
                 miDisparo.posicionaDisparo(miNave);
                 miDisparo.disparado = true;
                 break;

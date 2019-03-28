@@ -26,7 +26,7 @@ public class Disparo {
     
     public void mueve(){
         if (disparado){
-            y-=20;
+            y-=1;
         }
     }
     
