@@ -64,9 +64,9 @@ public class VentanaJuego extends javax.swing.JFrame {
         // 4º lo que mide de ancho el sprite en el spritesheet
         // 5º lo que mide de alto el sprite en el spritesheet
         // 6º para cambiar el tamaño de los sprites
-        imagenes = cargaImagenes("/imagenes/invaders2.png", 5, 4, 64, 64, 2);
+        imagenes = cargaImagenes("/imagenes/invaders2.png", 5, 4, 64, 64, 2 );
         
-        miDisparo.imagen = imagenes[3][2];
+        //miDisparo.imagen = imagenes[3][2];
         setSize(ANCHOPANTALLA, ALTOPANTALLA);
         buffer = (BufferedImage) jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
@@ -80,12 +80,13 @@ public class VentanaJuego extends javax.swing.JFrame {
         //inicializo el array de marcianos
         //1. parametro numero de la fila de marcianos que estoy creando
         //2. parametro fila dentro de 
-        creaFilaDeMarcianos(0,0,2);
-        creaFilaDeMarcianos(1,2,2);
-        creaFilaDeMarcianos(2,4,0);
-        creaFilaDeMarcianos(3,1,1);
-        creaFilaDeMarcianos(4,1,0);
-        creaFilaDeMarcianos(5,3,2);
+        creaFilaDeMarcianos(0,0,0);
+        creaFilaDeMarcianos(1,0,0);
+        creaFilaDeMarcianos(2,0,0);
+        creaFilaDeMarcianos(3,0,0);
+        creaFilaDeMarcianos(4,0,0);
+        creaFilaDeMarcianos(5,0,0);
+        //reproduce("/sonidos/Running in the 90's-[AudioTrimmer.com].wav");
     }
     
     private void reproduce (String cancion){

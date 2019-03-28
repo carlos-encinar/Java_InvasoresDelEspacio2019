@@ -18,15 +18,13 @@ public class Disparo {
 
     public Disparo(){
         try {
-            imagen = ImageIO.read(getClass().getResource("/imagenes/disparo.png"));
-        } catch (IOException ex) {
-            
-        }
+            imagen = ImageIO.read(getClass().getResource("/imagenes/nani2.png"));
+        } catch (IOException ex) { }
     }
     
     public void mueve(){
         if (disparado){
-            y-=1;
+            y-=2  ;
         }
     }
     
