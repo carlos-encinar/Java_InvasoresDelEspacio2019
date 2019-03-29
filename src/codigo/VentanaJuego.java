@@ -29,11 +29,11 @@ public class VentanaJuego extends javax.swing.JFrame {
     static int ALTOPANTALLA = 450;
 
     //numero de marcianos que van a aparecer
-    int filas = 6;
+    int filas = 4;
     int columnas = 10;
 
     BufferedImage buffer = null;
-
+    boolean gameOver = false;
     Nave miNave = new Nave();
     Disparo miDisparo = new Disparo();
     //Marciano miMarciano = new Marciano();
@@ -81,8 +81,6 @@ public class VentanaJuego extends javax.swing.JFrame {
         creaFilaDeMarcianos(1,0,0);
         creaFilaDeMarcianos(2,0,0);
         creaFilaDeMarcianos(3,0,0);
-        creaFilaDeMarcianos(4,0,0);
-        creaFilaDeMarcianos(5,0,0);
         reproduce("/sonidos/Bloodborne OST - Hunters Dream.wav");
         
         try{
@@ -109,6 +107,18 @@ public class VentanaJuego extends javax.swing.JFrame {
             listaMarcianos[numeroFila][j].x = j * (15 + listaMarcianos[numeroFila][j].imagen1.getWidth(null));
             listaMarcianos[numeroFila][j].y = numeroFila * (10 + listaMarcianos[numeroFila][j].imagen1.getHeight(null));
         }
+    }
+    
+    public void gameOver(Graphics2D g2) {
+        //Sacar texto gameOver
+        try {
+            //Intento obtener la foto de gameOver
+            Image imagenGameOver = ImageIO.read((getClass().getResource("/imagenes/died.png")));
+            //La pinto en el g2
+            g2.drawImage(imagenGameOver, 0, 0, null);
+        } catch (Exception e) {
+        }
+        reproduce("/sonidos/Directed by Robert.wav");
     }
     
     /*
@@ -139,6 +149,9 @@ public class VentanaJuego extends javax.swing.JFrame {
         //primero borro todo lo que hay en el buffer
         contador++;
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+        if (gameOver) {
+            gameOver(g2);
+        }
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, ANCHOPANTALLA, ALTOPANTALLA);
         
@@ -195,6 +208,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 listaMarcianos[i][j].setvX(listaMarcianos[i][j].getvX()* -1);
+                listaMarcianos[i][j].y += 15;
             }
         }
     }
