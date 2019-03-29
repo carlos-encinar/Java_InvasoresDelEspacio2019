@@ -5,7 +5,7 @@ import java.awt.Image;
 
 /**
  *
- * @author Jorge Cisneros
+ * @author Carlos Encinar
  */
 public class Marciano {
     public Image imagen1, imagen2 = null;

@@ -7,7 +7,7 @@ import java.awt.Image;
 
 /**
  *
- * @author Jorge Cisneros
+ * @author Carlos Encinar
  */
 public class Nave {
     public Image imagen = null;

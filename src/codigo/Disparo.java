@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author Jorge Cisneros
+ * @author Carlos Encinar
  */
 
 public class Disparo {
@@ -18,7 +18,7 @@ public class Disparo {
 
     public Disparo(){
         try {
-            imagen = ImageIO.read(getClass().getResource("/imagenes/nani2.png"));
+            imagen = ImageIO.read(getClass().getResource("/imagenes/nani3.png"));
         } catch (IOException ex) { }
     }
     

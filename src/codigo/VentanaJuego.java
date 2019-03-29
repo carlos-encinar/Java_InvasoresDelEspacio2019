@@ -21,7 +21,7 @@ import javax.sound.sampled.Clip;
 
 /**
  *
- * @author Jorge Cisneros
+ * @author Carlos Encinar
  */
 public class VentanaJuego extends javax.swing.JFrame {
 
@@ -44,7 +44,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     //imagen para cargar el spritesheet con todos los sprites del juego
     BufferedImage plantilla = null;
     Image [][] imagenes ;
-    
+    Image fondo;
     Timer temporizador = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -66,11 +66,10 @@ public class VentanaJuego extends javax.swing.JFrame {
         // 6º para cambiar el tamaño de los sprites
         imagenes = cargaImagenes("/imagenes/invaders2.png", 5, 4, 64, 64, 2 );
         
-        //miDisparo.imagen = imagenes[3][2];
         setSize(ANCHOPANTALLA, ALTOPANTALLA);
         buffer = (BufferedImage) jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
-
+        
         temporizador.start();
 
         //inicializo la posición inicial de la nave
@@ -78,15 +77,19 @@ public class VentanaJuego extends javax.swing.JFrame {
         miNave.x = ANCHOPANTALLA / 2 - miNave.imagen.getWidth(this) / 2;
         miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 40;
         //inicializo el array de marcianos
-        //1. parametro numero de la fila de marcianos que estoy creando
-        //2. parametro fila dentro de 
         creaFilaDeMarcianos(0,0,0);
         creaFilaDeMarcianos(1,0,0);
         creaFilaDeMarcianos(2,0,0);
         creaFilaDeMarcianos(3,0,0);
         creaFilaDeMarcianos(4,0,0);
         creaFilaDeMarcianos(5,0,0);
-        //reproduce("/sonidos/Running in the 90's-[AudioTrimmer.com].wav");
+        reproduce("/sonidos/Bloodborne OST - Hunters Dream.wav");
+        
+        try{
+            fondo = ImageIO.read(getClass().getResource("/imagenes/cbastian.jpg"));
+        }catch(IOException ex){
+            
+        }
     }
     
     private void reproduce (String cancion){
@@ -129,18 +132,6 @@ public class VentanaJuego extends javax.swing.JFrame {
         }
         
         return arrayImagenes;
-        
-        
-//        //la última fila del spritesheet sólo mide 32 de alto, así que hay que hacerla aparte
-//        for (int j=0; j<4; j++){
-//            imagenes[20 + j] = plantilla.getSubimage(j*64, 5*64, 64, 32);
-//        }
-//
-//        //la última columna del spritesheet sólo mide 32 de ancho, así que hay que hacerla aparte
-//    
-//        imagenes[24] = plantilla.getSubimage(4*64, 2*64, 32, 64);
-//        imagenes[24] = imagenes[24].getScaledInstance(16, 32, Image.SCALE_SMOOTH);
-//   
     }
     
     private void bucleDelJuego() {
@@ -150,9 +141,10 @@ public class VentanaJuego extends javax.swing.JFrame {
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, ANCHOPANTALLA, ALTOPANTALLA);
-
+        
         ///////////////////////////////////////////////////////
         //redibujaremos aquí cada elemento
+        g2.drawImage(fondo, 0, 0, null);
         g2.drawImage(miDisparo.imagen, miDisparo.x, miDisparo.y, null);
         g2.drawImage(miNave.imagen, miNave.x, miNave.y, null);
         pintaMarcianos(g2);
